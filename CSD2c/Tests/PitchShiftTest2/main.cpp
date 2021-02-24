@@ -44,7 +44,7 @@ int main(int argc,char **argv)
   circBuffer.setDistanceRW(numSamplesDelay);
   circBuffer.logAllSettings();
   //creating sawwave
-  Saw saw1(1, samplerate);
+  Saw saw1(-1, samplerate);
 
   //assign a function to the JackModule::onProces
   jack.onProcess = [&circBuffer, &saw1](jack_default_audio_sample_t *inBuf,
