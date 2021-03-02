@@ -71,6 +71,7 @@ int main(int argc,char **argv)
   //keep the program running and listen for user input, q = quit
   std::cout << "\n\nPress 'q' when you want to quit the program.\n";
   bool running = true;
+  double frequency = 1;
   while (running)
   {
     switch (std::cin.get())
@@ -79,6 +80,9 @@ int main(int argc,char **argv)
         running = false;
         jack.end();
         break;
+      case 'c':
+        saw1.setFrequency(frequency);
+        saw1.getFrequency();
     }
   }
 

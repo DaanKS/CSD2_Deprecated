@@ -14,6 +14,8 @@ Saw::~Saw()
 //Ignoring protection for now
 void Saw::setFrequency(double frequency)
 {
+  std::cout << "Osc speed";
+  std::cin >> frequency;
   this->frequency = frequency;
 }
 
