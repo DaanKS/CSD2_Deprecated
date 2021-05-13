@@ -24,7 +24,7 @@ int main(int argc,char **argv)
   jack.init(argv[0]);
   double samplerate = jack.getSamplerate();
 
-  Synthesizer synth;
+  Synthesizer synth(samplerate);
 
 
   //assign a function to the JackModule::onProces
@@ -35,7 +35,7 @@ int main(int argc,char **argv)
 
     for(unsigned int i = 0; i < nframes; i++) {
 
-      outBuf[i] = (synth.getSample() * amplitude);
+      outBuf[i] = synth.getSample() * amplitude;
       synth.tick();
     }
     return 0;
@@ -46,7 +46,7 @@ int main(int argc,char **argv)
   
   bool running = true;
       double frequency = 440.0;
-      double penis;
+      
   while (running)
   {
     switch (std::cin.get())
@@ -56,13 +56,13 @@ int main(int argc,char **argv)
         jack.end();
         break;}
       case 'r':
-        {synth.noteOn();
+        {synth.getGot();
         break;}
       case 'c':
       {
         std::cout << "Place new Frequency: \n";
-        std::cin >> penis;
-        synth.changeFreq(penis);
+        std::cin >> frequency;
+        synth.changeFreq(frequency);
         break;
       }
    }

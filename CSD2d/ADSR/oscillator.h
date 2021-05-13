@@ -7,7 +7,7 @@
 class Oscillator : public Generator 
 {
     public:
-        Oscillator();
+        Oscillator(double samplerate);
         ~Oscillator();
 
         void setFrequency(double frequency);

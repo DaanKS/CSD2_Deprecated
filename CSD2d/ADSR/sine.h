@@ -7,10 +7,12 @@ class Sine : public Oscillator
 {
     public:
         
-        Sine(double frequency);
+        Sine(double samplerate, double frequency);
         ~Sine();
 
         void tick() override;
+
+        double getSamplerate();
 
 };
 
