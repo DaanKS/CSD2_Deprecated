@@ -39,5 +39,5 @@ void Synthesizer::tick()
 
 double Synthesizer::getGot()
 {
-    std::cout << sine.getSamplerate();
+    std::cout << sine.getSamplerate() << std::endl;
 }

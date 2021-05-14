@@ -13,6 +13,7 @@ void Sine::tick()
 {
     phase += frequency / samplerate;
     sample = sin(M_PI * 2 * phase);
+    
 }
 
 double Sine::getSamplerate()

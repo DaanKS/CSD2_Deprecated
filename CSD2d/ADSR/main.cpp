@@ -35,7 +35,7 @@ int main(int argc,char **argv)
 
     for(unsigned int i = 0; i < nframes; i++) {
 
-      outBuf[i] = synth.getSample() * amplitude;
+      std::cout << synth.getSample() << std::endl;
       synth.tick();
     }
     return 0;
