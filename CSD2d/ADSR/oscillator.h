@@ -15,7 +15,7 @@ class Oscillator : public Generator
 
 
     protected:
-        double frequency;
+        
         double phase;
 };
 

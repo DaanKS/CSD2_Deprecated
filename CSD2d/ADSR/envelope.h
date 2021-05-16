@@ -29,7 +29,12 @@ class Envelope : public Generator
         double getSustainLevel();
         double getReleaseTime(); 
     */
-        ADSRvalues adsr;
+     ADSRvalues adsr{
+         .attack = 500,
+         .decay = 200,
+         .sustain = 0.5,
+         .release = 300
+     };
 
     
     protected:

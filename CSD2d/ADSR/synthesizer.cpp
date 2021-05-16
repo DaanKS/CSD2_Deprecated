@@ -42,5 +42,5 @@ void Synthesizer::tick()
 
 double Synthesizer::getSample()
 {
-  return generator->Generator::getSample();
+  return generator->getSample();
 }

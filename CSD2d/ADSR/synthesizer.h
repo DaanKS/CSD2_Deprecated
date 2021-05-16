@@ -28,8 +28,8 @@ class Synthesizer : public Generator
 
        
         double INPUT;
-        double frequency;
-        double OUTPUT;
+       
+        
 
 
 };

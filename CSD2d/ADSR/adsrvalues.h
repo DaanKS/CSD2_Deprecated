@@ -7,7 +7,6 @@ struct ADSRvalues
     double sustain;
     double release;
 
-    ADSRvalues() : attack(),decay(),sustain(),release()
-    {}
+   
 
 };
