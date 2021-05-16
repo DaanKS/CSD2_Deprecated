@@ -2,6 +2,7 @@
 
 Generator::Generator(double samplerate)
 {
+    samplerate = 44100.0;
     this->samplerate=samplerate;
 }
 
@@ -16,3 +17,14 @@ double Generator::getSample()
 void Generator::tick()
 {}
 
+void Generator::setFrequency(double frequency)
+{}
+
+double Generator::getFrequency()
+{}
+
+void Generator::reset()
+{}
+
+double Generator::ADSR(double INPUT)
+{}

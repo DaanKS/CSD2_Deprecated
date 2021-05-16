@@ -3,41 +3,44 @@
 
 
 Synthesizer::Synthesizer(double samplerate) : Generator(samplerate)
-{}
+{
+    envelope=new Envelope();
+    generator=new Sine(samplerate, 200);
+    
+}
 
 Synthesizer::~Synthesizer()
 {}
 
 void Synthesizer::noteOn()
 {
-    envelope.reset();
+   envelope->reset();
 }
 
 void Synthesizer::noteOff()
-{
-
-}
+{}
 
 double Synthesizer::processENV(double INPUT)
 {
-    envelope.inputSample(INPUT);
-    OUTPUT = envelope.ADSR();
-    return OUTPUT;
+   return envelope->ADSR(INPUT);
+    
 }
 
 
-void Synthesizer::changeFreq(double frequency)
+double Synthesizer::changeFreq(double frequency)
 {
-    sine.setFrequency(frequency);
-    sine.getFrequency();
+    this->generator->setFrequency(frequency);
+    frequency = this->generator->getFrequency();
+    std::cout << frequency << std::endl;
+    return frequency;
 }
 
 void Synthesizer::tick()
 {
-    sine.tick();
+    this->generator->tick(); 
 }
 
-double Synthesizer::getGot()
+double Synthesizer::getSample()
 {
-    std::cout << sine.getSamplerate() << std::endl;
+  return generator->Generator::getSample();
 }

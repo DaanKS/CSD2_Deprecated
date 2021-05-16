@@ -11,6 +11,7 @@ class Sine : public Oscillator
         ~Sine();
 
         void tick() override;
+       
 
         double getSamplerate();
 

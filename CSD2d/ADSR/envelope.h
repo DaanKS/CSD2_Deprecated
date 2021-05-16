@@ -13,10 +13,11 @@ class Envelope : public Generator
         Envelope();
         ~Envelope();
 
-        double ADSR();
         
-        void inputSample(double input);
-        void reset();
+        
+        double ADSR(double input) override;
+        
+        void reset() override;
     /*
         void setAttackTime(double attackTime);
         void setDecayTime(double decayTime);

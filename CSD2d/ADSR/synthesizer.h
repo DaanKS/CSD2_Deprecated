@@ -16,13 +16,17 @@ class Synthesizer : public Generator
         void noteOn();
         void noteOff();
         double processENV(double INPUT);
-        void changeFreq(double frequency);
+        double changeFreq(double frequency);
         void tick() override;
-        double getGot();
+        double getSample() override;
 
-        Sine sine{samplerate, 400};
-        Envelope envelope;
-    private: 
+        
+        
+    private:  
+        Generator *envelope;
+        Generator *generator;
+
+       
         double INPUT;
         double frequency;
         double OUTPUT;

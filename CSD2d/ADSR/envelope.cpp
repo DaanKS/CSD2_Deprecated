@@ -2,20 +2,21 @@
 
 Envelope::Envelope() : Generator(samplerate)
 {
-    adsr.attack = 40;
+ //   samplerate = 44100;
+    adsr.attack = 500;
     adsr.decay = 960;
+    attackTime = round((samplerate / 1000.0) * adsr.attack);
+    std::cout << attackTime << std::endl;
     multistack = multiplier / attackTime;
+
 }
 
 Envelope::~Envelope()
 {}
 
-double Envelope::ADSR()
-{
-    return sample;
-}
 
-void Envelope::inputSample(double input)
+
+double Envelope::ADSR(double input)
 {
     if(multiplier < 1.0){
         multiplier += multistack; 
@@ -23,7 +24,7 @@ void Envelope::inputSample(double input)
     else {
         multiplier = 1.0;
     }    
-    sample = sample * multiplier;
+    return input * multiplier;
 
 }
 

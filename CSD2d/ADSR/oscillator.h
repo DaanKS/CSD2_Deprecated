@@ -10,8 +10,8 @@ class Oscillator : public Generator
         Oscillator(double samplerate);
         ~Oscillator();
 
-        void setFrequency(double frequency);
-        double getFrequency();
+        void setFrequency(double frequency) override;
+        double getFrequency() override;
 
 
     protected:

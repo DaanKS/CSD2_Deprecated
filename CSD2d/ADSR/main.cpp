@@ -24,6 +24,7 @@ int main(int argc,char **argv)
   jack.init(argv[0]);
   double samplerate = jack.getSamplerate();
 
+
   Synthesizer synth(samplerate);
 
 
@@ -35,7 +36,7 @@ int main(int argc,char **argv)
 
     for(unsigned int i = 0; i < nframes; i++) {
 
-      std::cout << synth.getSample() << std::endl;
+      outBuf[i] = synth.processENV(synth.getSample() * amplitude);
       synth.tick();
     }
     return 0;
@@ -45,24 +46,26 @@ int main(int argc,char **argv)
 
   
   bool running = true;
-      double frequency = 440.0;
+      double frequency;
       
   while (running)
   {
+
     switch (std::cin.get())
     {
       case 'q':
         {running = false;
         jack.end();
-        break;}
-      case 'r':
-        {synth.getGot();
-        break;}
+        break;}     
       case 'c':
       {
-        std::cout << "Place new Frequency: \n";
+        std::cout << "Place new Frequency: ";
         std::cin >> frequency;
-        synth.changeFreq(frequency);
+        frequency = synth.changeFreq(frequency);
+        
+        break;
+      case 'r':
+        synth.noteOn();
         break;
       }
    }
