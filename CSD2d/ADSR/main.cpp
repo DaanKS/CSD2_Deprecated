@@ -38,6 +38,7 @@ int main(int argc,char **argv)
 
       outBuf[i] = synth.processENV(synth.getSample() * amplitude);
       synth.tick();
+      
     }
     return 0;
   };
