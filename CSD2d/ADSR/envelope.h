@@ -27,7 +27,10 @@ class Envelope : public Generator
         double getAttackTime();
         double getDecayTime();
         double getSustainLevel();
-        double getReleaseTime();     
+        double getReleaseTime();  
+
+        void stageChanger(); 
+        std::string stagePusher();  
        
     
      ADSRvalues adsr{
@@ -45,9 +48,17 @@ class Envelope : public Generator
         double sample;
         double input;
         
-        double multistack = 0.0;
+        double attackstack = 0.0;
+        double decaystack = 0.0;
+        double releasestack = 0.0;
         double multiplier = 1.0;
         std::string stage;
+        std::string ADSRSTAGES[5]{"attackMode", 
+                                    "decayMode", 
+                                    "sustainMode", 
+                                    "releaseMode",
+                                    "IDLE"};
+        int stageindex = 4;
 };
 
 

@@ -1,6 +1,7 @@
 #ifndef CLOCK_H_
 #define CLOCK_H_
 
+#include "generator.h"
 #include <vector>
 #include <string>
 
@@ -9,18 +10,14 @@
 
 
 class Clock{
-    
+    std::vector<Generator*> generators;
 public:
     
-    
+    void attach();
     void tick();
 
 protected:
-    std::string ADSRSTAGES[5]{"attackMode", 
-    "decayMode", 
-    "sustainMode", 
-    "releaseMode",
-    "IDLE"};
+  
 
 };
 

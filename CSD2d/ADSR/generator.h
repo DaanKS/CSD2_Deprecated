@@ -20,6 +20,8 @@ public:
     virtual void reset();
     virtual double ADSR(double INPUT);
 
+    
+
 protected:
     double samplerate = 44100;
     double sample;

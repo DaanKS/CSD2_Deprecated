@@ -2,12 +2,6 @@
 
 Envelope::Envelope() : Generator(samplerate)
 {
- //   samplerate = 44100;
-   // adsr.attack = 500;
-   // adsr.decay = 960;
-   // attackTime = round((samplerate / 1000.0) * adsr.attack);
-    std::cout << attackTime << std::endl;
-    multistack = multiplier / attackTime;
 
 }
 
@@ -19,13 +13,13 @@ Envelope::~Envelope()
 double Envelope::ADSR(double input)
 {
     if(stage == "attackMode"){
-          multiplier += multistack;
+          multiplier += attackstack;
           std::cout << "Ik ben attackMode\n";
           return input * multiplier;
 
       }
       else if(stage == "decayMode"){
-          multiplier -= multistack;
+          multiplier -= decaystack;
           std::cout << "Ik ben decayMode\n";
           return input * multiplier;
 
@@ -36,7 +30,7 @@ double Envelope::ADSR(double input)
           return input * multiplier;
       }
       else if(stage == "releaseMode"){
-        multiplier -= multistack;
+        multiplier -= releasestack;
         std::cout << "Ik ben releaseMode\n";
         return input * multiplier;
       }
@@ -53,28 +47,47 @@ void Envelope::reset()
 }
 
 void Envelope::setAttackTime(double attack){
-    double attackTime = round((samplerate / 1000.0) * attack);  
+    double attackTime = round((samplerate / 1000.0) * attack); 
+    attackstack = multiplier / attackTime; 
 }
 
 void Envelope::setDecayTime(double decay){
-    double decayTime = round((samplerate / 1000.0) * decay);   
+    double decayTime = round((samplerate / 1000.0) * decay); 
+    decaystack = multiplier / decayTime;  
 }
 void Envelope::setSustainLevel(double sustain){
    this->sustainLevel = sustain;
 }
 void Envelope::setReleaseTime(double release){
     double releaseTime = round((samplerate / 1000.0) * adsr.release);
+    releasestack = multiplier / releaseTime;
 }
 
 double Envelope::getAttackTime(){
-    return attackTime;
+    return attackstack;
 }
 double Envelope::getDecayTime(){
-    return decayTime;
+    return decaystack;
 }
 double Envelope::getSustainLevel(){
     return sustainLevel;
 }
 double Envelope::getReleaseTime(){
-    return releaseTime;
+    return releasestack;
+}
+
+void Envelope::stageChanger()
+{
+    if(stageindex == 0 || stageindex < 5){
+        stage = ADSRSTAGES[stageindex];
+        stageindex++;
+    }
+    else{
+        stageindex = 4;
+    }
+}
+
+std::string Envelope::stagePusher()
+{
+    return stage;
 }
