@@ -24,8 +24,8 @@ int main(int argc,char **argv)
   jack.init(argv[0]);
   double samplerate = jack.getSamplerate();
 
-
-  Synthesizer synth(samplerate);
+  Clock klok;
+  Synthesizer synth(&klok, samplerate);
 
 
   //assign a function to the JackModule::onProces

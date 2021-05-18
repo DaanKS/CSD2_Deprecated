@@ -10,10 +10,12 @@
 
 
 class Clock{
-    std::vector<Generator*> generators;
+    std::vector<class Generator*> generators;
 public:
+    Clock();
+    ~Clock();
     
-    void attach();
+    void attach(class Generator* generator);
     void tick();
 
 protected:

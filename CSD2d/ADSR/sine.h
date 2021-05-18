@@ -7,7 +7,7 @@ class Sine : public Oscillator
 {
     public:
         
-        Sine(double samplerate, double frequency);
+        Sine(Clock* klok, double samplerate, double frequency);
         ~Sine();
 
         void tick() override;

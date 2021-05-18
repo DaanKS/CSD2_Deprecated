@@ -1,6 +1,6 @@
 #include "oscillator.h"
 
-Oscillator::Oscillator(double samplerate) : Generator(samplerate)
+Oscillator::Oscillator(Clock* klok, double samplerate) : Generator(klok, samplerate)
 {}
 
 Oscillator::~Oscillator()

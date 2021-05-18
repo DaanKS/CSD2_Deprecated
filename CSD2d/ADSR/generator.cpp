@@ -1,7 +1,9 @@
 #include "generator.h"
 
-Generator::Generator(double samplerate)
+Generator::Generator(Clock* klok, double samplerate)
 {
+    clock = klok;
+    clock->attach(this);
     samplerate = 44100.0;
     this->samplerate=samplerate;
 }
@@ -27,4 +29,7 @@ void Generator::reset()
 {}
 
 double Generator::ADSR(double INPUT)
+{}
+
+void Generator::sampleCounter()
 {}

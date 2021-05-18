@@ -2,13 +2,13 @@
 #define GENERATOR_H_
 
 #include <iostream>
-
+#include "clock.h"
 #pragma once
 
 
 class Generator{
 public:
-    Generator(double samplerate);
+    Generator(class Clock* klok, double samplerate);
     ~Generator();
 
     
@@ -19,10 +19,10 @@ public:
 
     virtual void reset();
     virtual double ADSR(double INPUT);
-
-    
+    virtual void sampleCounter();
 
 protected:
+    Clock* clock;
     double samplerate = 44100;
     double sample;
     double frequency;

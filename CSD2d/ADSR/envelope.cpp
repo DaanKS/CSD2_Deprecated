@@ -1,49 +1,98 @@
 #include "envelope.h"
 
-Envelope::Envelope() : Generator(samplerate)
+Envelope::Envelope(Clock* klok) : Generator(klok, samplerate)
 {
+    attackstack = multiplier / attackTime; 
+    decaystack = multiplier / decayTime;
+    releasestack = multiplier / releaseTime;
 
 }
 
 Envelope::~Envelope()
 {}
 
-
-
 double Envelope::ADSR(double input)
 {
     if(stage == "attackMode"){
-          multiplier += attackstack;
           std::cout << "Ik ben attackMode\n";
           return input * multiplier;
-
       }
-      else if(stage == "decayMode"){
-          multiplier -= decaystack;
+      else if(stage == "decayMode"){         
           std::cout << "Ik ben decayMode\n";
           return input * multiplier;
-
       }
-      else if(stage == "sustainMode") {
-          multiplier = sustainLevel;
+      else if(stage == "sustainMode") {         
           std::cout << "Ik ben sustainMode!\n";
           return input * multiplier;
       }
-      else if(stage == "releaseMode"){
-        multiplier -= releasestack;
+      else if(stage == "releaseMode"){     
         std::cout << "Ik ben releaseMode\n";
         return input * multiplier;
       }
-      else{
-        multiplier = 0;
+      else{  
         return input * multiplier;
       } 
 
 }
 
-void Envelope::reset()
+void Envelope::tick()
 {
-    multiplier = 0.0;
+    if(stage == "attackMode"){
+          multiplier += attackstack;
+      }
+      else if(stage == "decayMode"){
+          multiplier -= decaystack;    
+      }
+      else if(stage == "sustainMode") {
+          multiplier = sustainLevel;    
+      }
+      else if(stage == "releaseMode"){
+        multiplier -= releasestack;   
+      }
+      else{
+        multiplier = 0;    
+      } 
+
+}
+
+void Envelope::sampleCounter(){
+   stage = ADSRSTAGES[stageindex];
+        if(stage == "attackMode"){
+          if(sampleIndex > attackTime){
+              sampleIndex++;
+          }
+          else{
+              stageindex++;
+              sampleIndex = 0;
+          }
+          
+      }
+      else if(stage == "decayMode"){
+          if(sampleIndex > decayTime){
+              sampleIndex++;
+          }
+          else{
+              stageindex++;
+              sampleIndex = 0;
+          }    
+      }
+      else if(stage == "sustainMode") {
+          stageindex++;    
+      }
+      else if(stage == "releaseMode"){
+        if(sampleIndex > releaseTime){
+            stageindex++;
+            sampleIndex = 0;
+        }  
+      }
+      else{
+       sampleIndex = 0;    
+      } 
+}
+
+void Envelope::reset(){
+    stage = "attackMode";
+    
 }
 
 void Envelope::setAttackTime(double attack){
@@ -76,18 +125,3 @@ double Envelope::getReleaseTime(){
     return releasestack;
 }
 
-void Envelope::stageChanger()
-{
-    if(stageindex == 0 || stageindex < 5){
-        stage = ADSRSTAGES[stageindex];
-        stageindex++;
-    }
-    else{
-        stageindex = 4;
-    }
-}
-
-std::string Envelope::stagePusher()
-{
-    return stage;
-}

@@ -10,12 +10,13 @@
 class Envelope : public Generator
 {
     public:
-        Envelope();
+        Envelope(Clock* klok);
         ~Envelope();
 
         
         
         double ADSR(double input) override;
+        void tick() override;
         
         void reset() override;
        
@@ -29,8 +30,7 @@ class Envelope : public Generator
         double getSustainLevel();
         double getReleaseTime();  
 
-        void stageChanger(); 
-        std::string stagePusher();  
+        void sampleCounter() override;
        
     
      ADSRvalues adsr{
@@ -58,7 +58,8 @@ class Envelope : public Generator
                                     "sustainMode", 
                                     "releaseMode",
                                     "IDLE"};
-        int stageindex = 4;
+        int stageindex = 0;
+        int sampleIndex = 0;
 };
 
 

@@ -1,6 +1,6 @@
 #include "sine.h"
 
-Sine::Sine(double samplerate, double frequency) : Oscillator(samplerate){
+Sine::Sine(Clock* klok, double samplerate, double frequency) : Oscillator(klok, samplerate){
     this->frequency=frequency;
     this->samplerate=samplerate;
 }

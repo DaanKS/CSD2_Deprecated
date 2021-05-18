@@ -10,7 +10,7 @@
 class Synthesizer : public Generator
 {
     public:
-        Synthesizer(double samplerate);
+        Synthesizer(Clock* klok, double samplerate);
         ~Synthesizer();
 
         void noteOn();

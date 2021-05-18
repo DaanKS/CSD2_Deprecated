@@ -2,9 +2,9 @@
 #include "sine.h"
 
 
-Synthesizer::Synthesizer(double samplerate) : Generator(samplerate){
-    envelope=new Envelope();
-    generator=new Sine(samplerate, 200);
+Synthesizer::Synthesizer(Clock* klok, double samplerate) : Generator(klok, samplerate){
+    envelope=new Envelope(klok);
+    generator=new Sine(klok ,samplerate, 200);
     
 }
 
@@ -33,6 +33,8 @@ double Synthesizer::changeFreq(double frequency){
 
 void Synthesizer::tick(){
     this->generator->tick();
+    this->envelope->tick();
+    this->envelope->sampleCounter();
      
 }
 
