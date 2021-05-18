@@ -37,10 +37,10 @@ class Envelope : public Generator
        
     
      ADSRvalues adsr{
-         .attack = 5,
-         .decay = 20,
-         .sustain = 0.1,
-         .release = 1000
+         .attack = 1,
+         .decay = 10,
+         .sustain = 0.02,
+         .release = 100
      };
    
     protected:
@@ -51,10 +51,7 @@ class Envelope : public Generator
         double releaseTime = round((samplerate / 1000.0) * adsr.release);
         double sample;
         double input;
-        
-        double attackstack = 0.0;
-        double decaystack = 0.0;
-        double releasestack = 0.0;
+        double amp = 1.0;
         double multiplier = 1.0;
         std::string stage;
         std::string ADSRSTAGES[5]{"attackMode", 

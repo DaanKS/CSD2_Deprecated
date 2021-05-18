@@ -1,4 +1,5 @@
 #include "envelope.h"
+#include <cmath>
 
 Envelope::Envelope(Clock* klok) : Generator(klok, samplerate){
 }
@@ -7,7 +8,13 @@ Envelope::~Envelope(){
 }
 
 double Envelope::ADSR(){         
-    amp *= multiplier;
+    if(stage == "sustainMode"){
+        amp = sustainLevel;
+    }
+    else{   
+        amp *= multiplier;
+    }
+    return amp; 
 }
 
 void Envelope::multCalc()
@@ -28,14 +35,16 @@ void Envelope::multCalc()
       }
       else{
         multiplier = 0;    
-      } 
-
+      }  
+ 
 }
 
 void Envelope::tick(){
    stage = ADSRSTAGES[stageindex];
+   
         if(stage == "attackMode"){
           if(sampleIndex < attackTime){
+              multiplier = 1.0 + (log(1.0) - log(0.0001)) / (attackTime);
               sampleIndex++;
           }
           else{
@@ -46,6 +55,7 @@ void Envelope::tick(){
       }
       else if(stage == "decayMode"){
           if(sampleIndex < decayTime){
+              multiplier = 1.0 + (log(sustainLevel) - log(1.0)) / (decayTime); 
               sampleIndex++;
           }
           else{
@@ -55,6 +65,7 @@ void Envelope::tick(){
       }
       else if(stage == "releaseMode"){
             if(sampleIndex < releaseTime){
+                multiplier = 1.0 + (log(0.0001) - log(sustainLevel)) / (releaseTime); 
                 sampleIndex++;
             }
             else{
@@ -68,6 +79,8 @@ void Envelope::tick(){
 }
 void Envelope::soundEliminator(){
     stage = "releaseMode";
+    stageindex = 3;
+    sampleIndex = 0;
 }
 
 void Envelope::reset(){
@@ -79,34 +92,34 @@ void Envelope::reset(){
 
 void Envelope::setAttackTime(double attack){
     double attackTime = round((samplerate / 1000.0) * attack); 
-    attackstack = multiplier / attackTime; 
+  
 }
 
 void Envelope::setDecayTime(double decay){
     double decayTime = round((samplerate / 1000.0) * decay); 
-    decaystack = multiplier / decayTime;  
+   
 }
 void Envelope::setSustainLevel(double sustain){
    this->sustainLevel = sustain;
 }
 void Envelope::setReleaseTime(double release){
     double releaseTime = round((samplerate / 1000.0) * adsr.release);
-    releasestack = multiplier / releaseTime;
+  
 }
 
 double Envelope::getAttackTime(){
-    return attackstack;
+    return attackTime;
 }
 double Envelope::getDecayTime(){
-    return decaystack;
+    return decayTime;
 }
 double Envelope::getSustainLevel(){
     return sustainLevel;
 }
 double Envelope::getReleaseTime(){
-    return releasestack;
+    return releaseTime;
 }
 
 double Envelope::returnMult(){
-    return amp;
+    return amp;   
 }

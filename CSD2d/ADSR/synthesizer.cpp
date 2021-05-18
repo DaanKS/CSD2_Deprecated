@@ -37,11 +37,11 @@ void Synthesizer::tick(){
     this->generator->tick();
     this->envelope->tick();
     this->hardclip->tick();
-    this->envelope->multCalc(); 
-    changeFreq((envelope->returnMult()* 500) + 20);  
+  //  this->envelope->multCalc(); 
+    changeFreq((envelope->returnMult()* 300) + 20);  
 }
 
 double Synthesizer::getSample(){
     hardclip->Catch(envelope->ADSR() * generator->getSample());
-    return hardclip->getSample();
-}
+    return hardclip->getSample();   
+}  

@@ -33,7 +33,7 @@ protected:
     double frequency;
     
     double driveInput;
-    double amp = 1.0;
+    
 };
 
 #endif
