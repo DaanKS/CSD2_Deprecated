@@ -1,4 +1,4 @@
-#include "generator.h"
+#include "../header/generator.h"
 
 Generator::Generator(Clock* klok, double samplerate){
     clock = klok;

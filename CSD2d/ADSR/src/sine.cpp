@@ -1,4 +1,4 @@
-#include "sine.h"
+#include "../header/sine.h"
 
 Sine::Sine(Clock* klok, double samplerate, double frequency) : Oscillator(klok, samplerate){
     this->frequency=frequency;

@@ -1,8 +1,10 @@
 #include <iostream>
 #include <thread>
-#include "jack_module.h"
+#include "../header/jack_module.h"
 #include <cmath>
-#include "synthesizer.h"
+#include "../header/synthesizer.h"
+#include <chrono>
+
 
 /*
  * NOTE: jack2 needs to be installed
@@ -59,13 +61,6 @@ int main(int argc,char **argv)
         {running = false;
         jack.end();
         break;}     
-      case 'c':
-      {
-        std::cout << "Place new Frequency: ";
-        std::cin >> frequency;
-        frequency = synth.changeFreq(frequency);
-        
-        break;
       case 'd':
         std::cout << "Place new Drive: ";
         std::cin >> drive;
@@ -76,7 +71,11 @@ int main(int argc,char **argv)
         break;
       case 't':
         synth.noteOff();
-      }
+      case 'p':
+        synth.noteOn();
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        synth.noteOff();
+        break;      
    }
   }
 

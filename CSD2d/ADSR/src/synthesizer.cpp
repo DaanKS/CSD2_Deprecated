@@ -1,5 +1,5 @@
-#include "synthesizer.h"
-#include "sine.h"
+#include "../header/synthesizer.h"
+#include "../header/sine.h"
 
 
 Synthesizer::Synthesizer(Clock* klok, double samplerate) : Generator(klok, samplerate){
@@ -32,13 +32,12 @@ int Synthesizer::changeDrive(double DRIVE){
     DRIVE = this->hardclip->getDrive();
     return DRIVE; 
 }
-
+//TODO ????
 void Synthesizer::tick(){
     this->generator->tick();
     this->envelope->tick();
-    this->hardclip->tick();
-  //  this->envelope->multCalc(); 
-    changeFreq((envelope->returnMult()* 300) + 20);  
+    this->hardclip->tick(); 
+     changeFreq((envelope->returnMult()* 300) + 20);  
 }
 
 double Synthesizer::getSample(){

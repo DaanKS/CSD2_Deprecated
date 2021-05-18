@@ -12,14 +12,13 @@ class Envelope : public Generator
     public:
         Envelope(Clock* klok);
         ~Envelope();
-
-        
-        
+       
         double ADSR() override;
         void tick() override;
         
         void reset() override;
        
+       //Added setters and getters for future functionality
         void setAttackTime(double attack);
         void setDecayTime(double decay);
         void setSustainLevel(double sustain);
@@ -30,17 +29,16 @@ class Envelope : public Generator
         double getSustainLevel();
         double getReleaseTime();  
 
-        void multCalc() override;
         void soundEliminator() override;
 
         double returnMult();
        
-    
+    //initial adsr times (ms)
      ADSRvalues adsr{
-         .attack = 1,
-         .decay = 10,
+         .attack = 10,
+         .decay = 100,
          .sustain = 0.02,
-         .release = 100
+         .release = 5000
      };
    
     protected:
@@ -51,7 +49,7 @@ class Envelope : public Generator
         double releaseTime = round((samplerate / 1000.0) * adsr.release);
         double sample;
         double input;
-        double amp = 1.0;
+        double amp;
         double multiplier = 1.0;
         std::string stage;
         std::string ADSRSTAGES[5]{"attackMode", 

@@ -1,12 +1,12 @@
-#include "HardClip.h"
+#include "../header/HardClip.h"
 
 
-//Class Initiation
 Hardclip::Hardclip(Clock* klok, double samplerate) : Generator(klok, samplerate)
 {}
 Hardclip::~Hardclip()
 {}
 
+//Very complex calculation for distortion
 void Hardclip::tick(){
   drive = std::max(drive, 0); 
   double x1 = drySample * drive;
@@ -18,11 +18,12 @@ void Hardclip::tick(){
       wetSample = x1;
     }
 }
-
+//audio output
 double Hardclip::getSample(){
   return wetSample;
 }
 
+// audio input
 double Hardclip::Catch(double input){
   drySample = input;
   return drySample;

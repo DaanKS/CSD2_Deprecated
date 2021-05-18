@@ -1,4 +1,4 @@
-#include "oscillator.h"
+#include "../header/oscillator.h"
 
 Oscillator::Oscillator(Clock* klok, double samplerate) : Generator(klok, samplerate)
 {}
