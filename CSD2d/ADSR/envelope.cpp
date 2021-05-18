@@ -1,43 +1,16 @@
 #include "envelope.h"
 
-Envelope::Envelope(Clock* klok) : Generator(klok, samplerate)
-{
-    attackstack = multiplier / attackTime; 
-    decaystack = multiplier / decayTime;
-    releasestack = multiplier / releaseTime;
-
+Envelope::Envelope(Clock* klok) : Generator(klok, samplerate){
 }
 
-Envelope::~Envelope()
-{}
-
-double Envelope::ADSR(double input)
-//
-{
-    if(stage == "attackMode"){
-          
-          return input * multiplier;
-      }
-      else if(stage == "decayMode"){         
-         
-          return input * multiplier;
-      }
-      else if(stage == "sustainMode") {         
-          
-          return input * multiplier;
-      }
-      else if(stage == "releaseMode"){     
-        
-        return input * multiplier;
-      }
-      else{  
-        return input * multiplier;
-        std::cout << "Ik ben geen modus :(\n";
-      } 
-
+Envelope::~Envelope(){    
 }
 
-void Envelope::tick()
+double Envelope::ADSR(){         
+    amp *= multiplier;
+}
+
+void Envelope::multCalc()
 // Used calculations from Martin Finke's ADSR for exponential curves
 //TODO CLEAN MAGIC NUMBERS
 {
@@ -59,7 +32,7 @@ void Envelope::tick()
 
 }
 
-void Envelope::sampleCounter(){
+void Envelope::tick(){
    stage = ADSRSTAGES[stageindex];
         if(stage == "attackMode"){
           if(sampleIndex < attackTime){
@@ -94,7 +67,7 @@ void Envelope::sampleCounter(){
       } 
 }
 void Envelope::soundEliminator(){
-    stageindex++;
+    stage = "releaseMode";
 }
 
 void Envelope::reset(){
@@ -134,7 +107,6 @@ double Envelope::getReleaseTime(){
     return releasestack;
 }
 
-double Envelope::returnMult()
-{
-    return multiplier;
+double Envelope::returnMult(){
+    return amp;
 }

@@ -24,7 +24,6 @@ void Synthesizer::noteOff(){
 double Synthesizer::changeFreq(double frequency){
     this->generator->setFrequency(frequency);
     frequency = this->generator->getFrequency();
-    std::cout << frequency << std::endl;
     return frequency;
 }
 
@@ -37,12 +36,12 @@ int Synthesizer::changeDrive(double DRIVE){
 void Synthesizer::tick(){
     this->generator->tick();
     this->envelope->tick();
-    this->envelope->sampleCounter();
-    this->hardclip->tick(); 
-    changeFreq((envelope->returnMult()));  
+    this->hardclip->tick();
+    this->envelope->multCalc(); 
+    changeFreq((envelope->returnMult()* 500) + 20);  
 }
 
 double Synthesizer::getSample(){
-    hardclip->Catch(envelope->ADSR(generator->getSample()));
+    hardclip->Catch(envelope->ADSR() * generator->getSample());
     return hardclip->getSample();
 }

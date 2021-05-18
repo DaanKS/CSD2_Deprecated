@@ -15,7 +15,7 @@ class Envelope : public Generator
 
         
         
-        double ADSR(double input) override;
+        double ADSR() override;
         void tick() override;
         
         void reset() override;
@@ -30,7 +30,7 @@ class Envelope : public Generator
         double getSustainLevel();
         double getReleaseTime();  
 
-        void sampleCounter() override;
+        void multCalc() override;
         void soundEliminator() override;
 
         double returnMult();
@@ -44,6 +44,7 @@ class Envelope : public Generator
      };
    
     protected:
+    //mstosamps
         double attackTime = round((samplerate / 1000.0) * adsr.attack);
         double decayTime = round((samplerate / 1000.0) * adsr.decay);
         double sustainLevel = adsr.sustain;

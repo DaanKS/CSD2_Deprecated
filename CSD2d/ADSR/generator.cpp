@@ -19,8 +19,8 @@ void Generator::setFrequency(double frequency){}
 double Generator::getFrequency(){}
 
 void Generator::reset(){}
-double Generator::ADSR(double INPUT){}
-void Generator::sampleCounter(){}
+double Generator::ADSR(){}
+void Generator::multCalc(){}
 void Generator::soundEliminator(){}
 
 void Generator::setDrive(int DRIVE){}

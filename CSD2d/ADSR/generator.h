@@ -18,8 +18,8 @@ public:
     virtual double getFrequency();
 
     virtual void reset();
-    virtual double ADSR(double INPUT);
-    virtual void sampleCounter();
+    virtual double ADSR();
+    virtual void multCalc();
     virtual void soundEliminator();
 
     virtual double Catch(double driveInput);
@@ -31,8 +31,9 @@ protected:
     double samplerate = 44100;
     double sample;
     double frequency;
-    double INPUT;
+    
     double driveInput;
+    double amp = 1.0;
 };
 
 #endif
