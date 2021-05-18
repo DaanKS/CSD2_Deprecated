@@ -15,8 +15,9 @@ void Synthesizer::noteOn(){
    envelope->reset();
 }
 
-void Synthesizer::noteOff()
-{}
+void Synthesizer::noteOff(){
+    envelope->soundEliminator();
+}
 
 double Synthesizer::processENV(double INPUT){
    return envelope->ADSR(INPUT);

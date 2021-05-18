@@ -14,23 +14,24 @@ Envelope::~Envelope()
 double Envelope::ADSR(double input)
 {
     if(stage == "attackMode"){
-          std::cout << "Ik ben attackMode\n";
+          
           return input * multiplier;
       }
       else if(stage == "decayMode"){         
-          std::cout << "Ik ben decayMode\n";
+         
           return input * multiplier;
       }
       else if(stage == "sustainMode") {         
-          std::cout << "Ik ben sustainMode!\n";
+          
           return input * multiplier;
       }
       else if(stage == "releaseMode"){     
-        std::cout << "Ik ben releaseMode\n";
+        
         return input * multiplier;
       }
       else{  
         return input * multiplier;
+        std::cout << "Ik ben geen modus :(\n";
       } 
 
 }
@@ -43,11 +44,11 @@ void Envelope::tick()
       else if(stage == "decayMode"){
           multiplier -= decaystack;    
       }
-      else if(stage == "sustainMode") {
+      else if(stage == "sustainMode"){
           multiplier = sustainLevel;    
       }
       else if(stage == "releaseMode"){
-        multiplier -= releasestack;   
+        multiplier -= (releasestack);   
       }
       else{
         multiplier = 0;    
@@ -58,7 +59,7 @@ void Envelope::tick()
 void Envelope::sampleCounter(){
    stage = ADSRSTAGES[stageindex];
         if(stage == "attackMode"){
-          if(sampleIndex > attackTime){
+          if(sampleIndex < attackTime){
               sampleIndex++;
           }
           else{
@@ -68,7 +69,7 @@ void Envelope::sampleCounter(){
           
       }
       else if(stage == "decayMode"){
-          if(sampleIndex > decayTime){
+          if(sampleIndex < decayTime){
               sampleIndex++;
           }
           else{
@@ -76,22 +77,27 @@ void Envelope::sampleCounter(){
               sampleIndex = 0;
           }    
       }
-      else if(stage == "sustainMode") {
-          stageindex++;    
-      }
       else if(stage == "releaseMode"){
-        if(sampleIndex > releaseTime){
-            stageindex++;
-            sampleIndex = 0;
+            if(sampleIndex < releaseTime){
+                sampleIndex++;
+            }
+            else{
+                stageindex++; 
+            }        
         }  
-      }
       else{
-       sampleIndex = 0;    
+       sampleIndex = 0;  
+         
       } 
+}
+void Envelope::soundEliminator(){
+    stageindex++;
 }
 
 void Envelope::reset(){
     stage = "attackMode";
+    stageindex = 0;
+    sampleIndex = 0;
     
 }
 

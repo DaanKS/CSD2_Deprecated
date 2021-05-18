@@ -20,6 +20,7 @@ public:
     virtual void reset();
     virtual double ADSR(double INPUT);
     virtual void sampleCounter();
+    virtual void soundEliminator();
 
 protected:
     Clock* clock;

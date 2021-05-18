@@ -33,3 +33,6 @@ double Generator::ADSR(double INPUT)
 
 void Generator::sampleCounter()
 {}
+
+void Generator::soundEliminator()
+{}

@@ -31,13 +31,14 @@ class Envelope : public Generator
         double getReleaseTime();  
 
         void sampleCounter() override;
+        void soundEliminator() override;
        
     
      ADSRvalues adsr{
-         .attack = 500,
+         .attack = 5,
          .decay = 200,
-         .sustain = 0.5,
-         .release = 300
+         .sustain = 1.0,
+         .release = 500
      };
    
     protected:

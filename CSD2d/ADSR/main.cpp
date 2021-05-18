@@ -68,6 +68,8 @@ int main(int argc,char **argv)
       case 'r':
         synth.noteOn();
         break;
+      case 't':
+        synth.noteOff();
       }
    }
   }
