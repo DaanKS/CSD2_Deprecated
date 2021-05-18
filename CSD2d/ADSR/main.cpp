@@ -29,15 +29,15 @@ int main(int argc,char **argv)
 
 
   //assign a function to the JackModule::onProces
-  jack.onProcess = [&synth](jack_default_audio_sample_t *inBuf,
+  jack.onProcess = [&synth, &klok](jack_default_audio_sample_t *inBuf,
      jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
 
     static float amplitude = 0.15;
 
     for(unsigned int i = 0; i < nframes; i++) {
 
-      outBuf[i] = synth.processENV(synth.getSample() * amplitude);
-      synth.tick();
+      outBuf[i] =(synth.getSample() * amplitude);
+      klok.tick();
       
     }
     return 0;
@@ -48,6 +48,7 @@ int main(int argc,char **argv)
   
   bool running = true;
      double frequency;
+     int drive;
       
   while (running)
   {
@@ -64,6 +65,11 @@ int main(int argc,char **argv)
         std::cin >> frequency;
         frequency = synth.changeFreq(frequency);
         
+        break;
+      case 'd':
+        std::cout << "Place new Drive: ";
+        std::cin >> drive;
+        drive = synth.changeDrive(drive);
         break;
       case 'r':
         synth.noteOn();

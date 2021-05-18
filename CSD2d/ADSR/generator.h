@@ -22,12 +22,17 @@ public:
     virtual void sampleCounter();
     virtual void soundEliminator();
 
+    virtual double Catch(double driveInput);
+    virtual void setDrive(int DRIVE);
+    virtual int getDrive();
+
 protected:
     Clock* clock;
     double samplerate = 44100;
     double sample;
     double frequency;
     double INPUT;
+    double driveInput;
 };
 
 #endif

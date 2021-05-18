@@ -36,8 +36,8 @@ class Envelope : public Generator
     
      ADSRvalues adsr{
          .attack = 5,
-         .decay = 200,
-         .sustain = 1.0,
+         .decay = 20,
+         .sustain = 0.1,
          .release = 500
      };
    

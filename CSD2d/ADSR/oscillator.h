@@ -12,6 +12,7 @@ class Oscillator : public Generator
 
         void setFrequency(double frequency) override;
         double getFrequency() override;
+        
 
 
     protected:

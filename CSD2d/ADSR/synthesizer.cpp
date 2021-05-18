@@ -5,7 +5,8 @@
 Synthesizer::Synthesizer(Clock* klok, double samplerate) : Generator(klok, samplerate){
     envelope=new Envelope(klok);
     generator=new Sine(klok ,samplerate, 200);
-    
+    hardclip=new Hardclip(klok, samplerate);
+     
 }
 
 Synthesizer::~Synthesizer()
@@ -19,11 +20,6 @@ void Synthesizer::noteOff(){
     envelope->soundEliminator();
 }
 
-double Synthesizer::processENV(double INPUT){
-   return envelope->ADSR(INPUT);
-    
-}
-
 
 double Synthesizer::changeFreq(double frequency){
     this->generator->setFrequency(frequency);
@@ -32,14 +28,21 @@ double Synthesizer::changeFreq(double frequency){
     return frequency;
 }
 
+int Synthesizer::changeDrive(double DRIVE){
+    this->hardclip->setDrive(DRIVE);
+    DRIVE = this->hardclip->getDrive();
+    std::cout << DRIVE << std::endl;
+    return DRIVE; 
+}
+
 void Synthesizer::tick(){
     this->generator->tick();
     this->envelope->tick();
     this->envelope->sampleCounter();
-     
+    this->hardclip->tick();    
 }
 
 double Synthesizer::getSample(){
-  
-  return generator->getSample();
+    hardclip->Catch(envelope->ADSR(generator->getSample()));
+    return hardclip->getSample();
 }

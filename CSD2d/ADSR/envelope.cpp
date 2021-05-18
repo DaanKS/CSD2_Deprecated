@@ -83,7 +83,7 @@ void Envelope::sampleCounter(){
             }
             else{
                 stageindex++; 
-            }        
+            }         
         }  
       else{
        sampleIndex = 0;  

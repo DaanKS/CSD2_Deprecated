@@ -16,7 +16,7 @@ public:
     ~Clock();
     
     void attach(class Generator* generator);
-    void tick();
+    void tick(); //notify()
 
 protected:
   
