@@ -31,7 +31,6 @@ double Synthesizer::changeFreq(double frequency){
 int Synthesizer::changeDrive(double DRIVE){
     this->hardclip->setDrive(DRIVE);
     DRIVE = this->hardclip->getDrive();
-    std::cout << DRIVE << std::endl;
     return DRIVE; 
 }
 
@@ -39,7 +38,8 @@ void Synthesizer::tick(){
     this->generator->tick();
     this->envelope->tick();
     this->envelope->sampleCounter();
-    this->hardclip->tick();    
+    this->hardclip->tick(); 
+    changeFreq((envelope->returnMult()));  
 }
 
 double Synthesizer::getSample(){

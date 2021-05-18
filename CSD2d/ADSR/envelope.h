@@ -32,13 +32,15 @@ class Envelope : public Generator
 
         void sampleCounter() override;
         void soundEliminator() override;
+
+        double returnMult();
        
     
      ADSRvalues adsr{
          .attack = 5,
          .decay = 20,
          .sustain = 0.1,
-         .release = 500
+         .release = 1000
      };
    
     protected:

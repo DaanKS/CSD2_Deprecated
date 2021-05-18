@@ -25,7 +25,7 @@ class Synthesizer : public Generator
         
         
     private:  
-        Generator *envelope;
+        Envelope *envelope;
         Generator *generator;
         Generator *hardclip;
 

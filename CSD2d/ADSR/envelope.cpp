@@ -12,6 +12,7 @@ Envelope::~Envelope()
 {}
 
 double Envelope::ADSR(double input)
+//
 {
     if(stage == "attackMode"){
           
@@ -37,18 +38,20 @@ double Envelope::ADSR(double input)
 }
 
 void Envelope::tick()
+// Used calculations from Martin Finke's ADSR for exponential curves
+//TODO CLEAN MAGIC NUMBERS
 {
     if(stage == "attackMode"){
-          multiplier += attackstack;
+          multiplier = 1.0 + (log(1.0) - log(0.0001)) / (attackTime);
       }
       else if(stage == "decayMode"){
-          multiplier -= decaystack;    
+           multiplier = 1.0 + (log(sustainLevel) - log(1.0)) / (decayTime);  
       }
       else if(stage == "sustainMode"){
           multiplier = sustainLevel;    
       }
       else if(stage == "releaseMode"){
-        multiplier -= (releasestack);   
+        multiplier = 1.0 + (log(0.0001) - log(sustainLevel)) / (releaseTime);           
       }
       else{
         multiplier = 0;    
@@ -131,3 +134,7 @@ double Envelope::getReleaseTime(){
     return releasestack;
 }
 
+double Envelope::returnMult()
+{
+    return multiplier;
+}
